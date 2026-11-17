@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>sky-ui demo</title>
+<link rel="stylesheet" href="./tokens.css">
+<style>
+  body { background: var(--sky-bg); color: var(--sky-text); font-family: var(--sky-font-sans); }
+  section { max-width: 32rem; }
+</style>
+</head>
+<body>
+<h1>sky-ui</h1>
+<section><h2>line</h2><div id="line"></div></section>
+<section><h2>bars</h2><div id="bars"></div></section>
+<section><h2>stacked</h2><div id="stacked"></div></section>
+<section><h2>tile</h2><div id="tile"></div></section>
+<section><h2>skymap</h2><div id="skymap"></div></section>
+<script type="module">
+import { line, bars, stacked, tile } from './charts.js';
+import { skymap } from './skymap.js';
+
+const kp = [{ x: '00:00', y: 2 }, { x: '03:00', y: 4 }, { x: '06:00', y: 5 }, { x: '09:00', y: 3 }];
+const flares = [{ label: 'B', value: 6 }, { label: 'C', value: 9 }, { label: 'M', value: 3 }, { label: 'X', value: 1 }];
+const alerts = [
+  { label: 'Mon', values: { asteroid: 12, variable: 30, transient: 5 } },
+  { label: 'Tue', values: { asteroid: 9, variable: 26, transient: 8 } },
+  { label: 'Wed', values: { asteroid: 15, variable: 22, transient: 4 } },
+];
+const neos = [
+  { id: '2024 PT5', ra: 312.4, dec: 14.2, mag: 21.3 },
+  { id: '99942 Apophis', ra: 45.8, dec: -8.6, mag: 19.7 },
+  { id: '433 Eros', ra: 170.1, dec: 32.5, mag: 11.2 },
+  { id: '3200 Phaethon', ra: 101.9, dec: -41.3, mag: 16.8 },
+];
+
+line(document.getElementById('line'), kp, { title: 'Kp index', xLabel: 'UTC', yLabel: 'Kp' });
+bars(document.getElementById('bars'), flares, { title: 'Flares by class', xLabel: 'Class', yLabel: 'Count' });
+stacked(document.getElementById('stacked'), alerts, { title: 'Alerts per night', xLabel: 'Night', yLabel: 'Alerts' });
+tile(document.getElementById('tile'), kp, { title: 'Kp now', xLabel: 'UTC', yLabel: 'Kp' });
+skymap(document.getElementById('skymap'), neos);
+</script>
+</body>
+</html>
